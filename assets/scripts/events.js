@@ -3,7 +3,9 @@
 const getFormFields = require('./../../lib/get-form-fields')
 const api = require('./api')
 const ui = require('./ui')
-
+const store=require('./store')
+const actions=require('./actions')
+// User Events
 const onSignUp = event => {
   event.preventDefault();
 
@@ -43,9 +45,24 @@ const onSignOut = event => {
     .catch(ui.signOutFailure)
 }
 
+//Gameboard events
+const onSquare = event => {
+  event.preventDefault()
+  console.log(event.target)
+  store.game.cell.index=event.target.dataset.index
+  //array status
+  actions.cellStatus(store.game.cell.index)
+  //update ui with player move options
+  //update api
+
+  //game gameStatus
+  console.log(actions.gameStatus())
+  //update ui with game status and declare winner
+}
 module.exports = {
   onSignUp,
   onSignIn,
   onPassChange,
-  onSignOut
+  onSignOut,
+  onSquare
 }
