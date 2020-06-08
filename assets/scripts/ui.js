@@ -1,6 +1,7 @@
 //This page contains all front end ui results following event handlers
 'use strict'
 const store = require('./store')
+
 const signUpSuccess = (data) => {
   $("#signup-result").text("it worked")
 }
@@ -30,8 +31,22 @@ const signOutFailure = data => {
 }
 
 //Gameboard UI Events
+const updateCell = event => {
+  $(event.target).text(store.game.cell.value)
+}
 // const onPlaySuccess
 
+
+//Game setup
+const createSuccess = data => {
+  console.log(data)
+  $('#setup-result').text('Created new game from api')
+  store.game.id=data.game._id
+  $('.board').show()
+}
+const createFailure = () => {
+  $('#setup-result').text('Failed to create new game')
+}
 module.exports = {
   signUpSuccess,
   signUpFailure,
@@ -40,5 +55,8 @@ module.exports = {
   pwChangeSuccess,
   pwChangeFailure,
   signOutSuccess,
-  signOutFailure
+  signOutFailure,
+  createSuccess,
+  createFailure,
+  updateCell
 }

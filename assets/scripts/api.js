@@ -2,6 +2,7 @@
 'use strict'
 const config = require('./config')
 const store = require('./store')
+
 const signUp = formData => {
   return $.ajax({
     method: 'POST',
@@ -58,9 +59,43 @@ const signOut = () => {
     }
   })
 }
+
+//Game Setup
+const createGame = () => {
+  return $.ajax({
+    url: config.apiUrl + '/games',
+    method: 'POST',
+    headers:{
+      Authorization: "Token token="+store.user.token
+    }
+  })
+}
+//Gameplay
+const updateCell = () => {
+  console.log(store)
+  return $.ajax({
+    url: config.apiUrl + '/games/'+store.game.id,
+    method: 'PATCH',
+    headers:{
+      Authorization: "Token token="+store.user.token
+    },
+    data:{
+      game:{
+        cell:{
+          index: store.game.cell.index,
+          value: store.game.cell.value
+        },
+        over: store.game.over
+      }
+    }
+  })
+}
+
 module.exports = {
   signUp,
   signIn,
   pwChange,
-  signOut
+  signOut,
+  createGame,
+  updateCell
 }

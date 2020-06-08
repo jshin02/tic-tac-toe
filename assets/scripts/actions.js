@@ -53,6 +53,7 @@ const gameStatus = () => {
   return gameCondition
 }
 
+
 module.exports = {
   cellStatus,
   gameStatus

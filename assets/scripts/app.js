@@ -9,6 +9,7 @@ const events = require('./events')
 
 
 $(() => {
+  $('.board').hide()
   $('#signup-form').on('submit', events.onSignUp)
   $('#signin-form').on('submit', events.onSignIn)
   $('#pwChange-form').on('submit', events.onPassChange)
@@ -25,5 +26,6 @@ $(() => {
   $('#bottom-middle').on('click', events.onSquare)
   $('#bottom-right').on('click', events.onSquare)
 
-
+  // Setup events
+  $('#game-button').on('click', events.onNewGame)
 })

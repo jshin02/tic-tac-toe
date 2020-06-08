@@ -55,15 +55,36 @@ const onSquare = event => {
   //update ui with player move options
   //game gameStatus
   console.log(actions.gameStatus())
-
   //update api
+  api.updateCell()
+  ui.updateCell(event)
+  // gameOver api
 
   //update ui with game status and declare winner
 }
+
+//Set Up Events
+const onNewGame = event => {
+  // event.preventDefault()
+  api.createGame()
+    .then(ui.createSuccess)
+    .catch(ui.createFailure)
+
+  api.updateCell
+
+  store.game.cells = ["","","","","","","","",""]
+  store.game.turnNum = 1
+  $('.board').text('')
+  console.log(store.game)
+}
+
+
+
 module.exports = {
   onSignUp,
   onSignIn,
   onPassChange,
   onSignOut,
-  onSquare
+  onSquare,
+  onNewGame
 }
