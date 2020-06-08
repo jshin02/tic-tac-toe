@@ -1,6 +1,6 @@
 # creates game in database
 
-curl 'https://tic-tac-toe-wdi-production.herokuapp.com/games' \
+curl 'https://tic-tac-toe-wdi.herokuapp.com/games' \
   --include \
   --request POST \
   --header "Content-Type: application/json" \

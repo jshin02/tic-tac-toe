@@ -1,6 +1,8 @@
-curl 'https://tic-tac-toe-wdi.herokuapp.com/sign-out' \
+# creates game in database
+
+curl "https://tic-tac-toe-wdi.herokuapp.com/games" \
   --include \
-  --request DELETE \
+  --request GET \
   --header "Content-Type: application/json" \
   --header "Authorization: Token token=${TOKEN}"
 

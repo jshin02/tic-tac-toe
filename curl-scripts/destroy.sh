@@ -1,9 +1,7 @@
-# creates game in database
-
 curl "https://tic-tac-toe-wdi.herokuapp.com/games/${ID}" \
   --include \
-  --request GET \
+  --request DELETE \
   --header "Content-Type: application/json" \
-  --header "Authorization: Token token=${TOKEN}"
+  --header "Authorization: Token token=${TOKEN}" \
 
 echo
