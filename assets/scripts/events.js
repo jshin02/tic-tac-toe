@@ -53,10 +53,11 @@ const onSquare = event => {
   //array status
   actions.cellStatus(store.game.cell.index)
   //update ui with player move options
-  //update api
-
   //game gameStatus
   console.log(actions.gameStatus())
+
+  //update api
+
   //update ui with game status and declare winner
 }
 module.exports = {

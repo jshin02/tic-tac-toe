@@ -5,7 +5,7 @@ const store = require('./store')
 const signUp = formData => {
   return $.ajax({
     method: 'POST',
-    url: 'https://tic-tac-toe-wdi-production.herokuapp.com'+'/sign-up',
+    url: config.apiUrl+'/sign-up',
     data: formData
     // {
     //   credentials:{
@@ -21,7 +21,7 @@ const signIn = formData => {
   console.log(formData);
   return $.ajax({
     method: 'POST',
-    url: 'https://tic-tac-toe-wdi-production.herokuapp.com'+'/sign-in',
+    url: config.apiUrl+'/sign-in',
     data: formData
     // {
     //   credentials:{
@@ -35,7 +35,7 @@ const signIn = formData => {
 const pwChange = formData => {
   return $.ajax({
     method: 'PATCH',
-    url: 'https://tic-tac-toe-wdi-production.herokuapp.com'+'/change-password',
+    url: config.apiUrl+'/change-password',
     headers:{
       Authorization: "Token token="+store.user.token
     },
@@ -52,7 +52,7 @@ const pwChange = formData => {
 const signOut = () => {
   return $.ajax({
     method: 'DELETE',
-    url: 'https://tic-tac-toe-wdi-production.herokuapp.com'+'/sign-out',
+    url: config.apiUrl+'/sign-out',
     headers:{
       Authorization: "Token token="+store.user.token
     }

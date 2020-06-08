@@ -20,7 +20,7 @@ const cellStatus = (index) => {
     store.game.turnNum += 1;
 
   }else {
-
+    //update UI with gameplay insructions
   }
 }
 
