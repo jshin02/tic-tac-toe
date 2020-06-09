@@ -18,14 +18,16 @@ const cellStatus = (index) => {
     store.game.cells[index]=store.game.cell.value
     console.log(store)
     store.game.turnNum += 1;
-
+    return true
   }else {
-    //update UI with gameplay insructions
+    return false//update UI with gameplay insructions
   }
 }
 
 const gameStatus = () => {
   let gameCondition=0;
+  let xRow=0;
+  let oRow=0;
   // for (let i=0; i<store.game.winners.length; i++){
   let i=0;
   while(i<8){
@@ -37,7 +39,9 @@ const gameStatus = () => {
       charCondition.push(boardValue)
     }
     //Push into REAL MODEL here
-    gameCondition = charCondition.every(a => a==='x' ? true : false)
+     xRow= charCondition.every(a => a==='x' ? true : false);
+     oRow= charCondition.every(a => a==='o' ? true : false);
+     gameCondition = (xRow===true || oRow===true) ? true : false;
     console.log(charCondition)
     console.log(gameCondition)
     if(gameCondition){
@@ -52,7 +56,6 @@ const gameStatus = () => {
   }
   return gameCondition
 }
-
 
 module.exports = {
   cellStatus,

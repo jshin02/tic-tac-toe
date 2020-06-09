@@ -91,11 +91,12 @@ const updateCell = () => {
   })
 }
 
+
 module.exports = {
   signUp,
   signIn,
   pwChange,
   signOut,
-  createGame,
-  updateCell
+  updateCell,
+  createGame
 }

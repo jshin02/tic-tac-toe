@@ -33,8 +33,8 @@ const onPassChange = event => {
   console.log(data)
 
   api.pwChange(data)
-    .then(ui.signInSuccess)
-    .catch(ui.signInFailure)
+    .then(ui.pwChangeSuccess)
+    .catch(ui.pwChangeFailure)
 }
 
 const onSignOut = event => {
@@ -50,17 +50,18 @@ const onSquare = event => {
   event.preventDefault()
   console.log(event.target)
   store.game.cell.index=event.target.dataset.index
-  //array status
+  //Update MODEL array and instructions
   actions.cellStatus(store.game.cell.index)
-  //update ui with player move options
-  //game gameStatus
-  console.log(actions.gameStatus())
-  //update api
-  api.updateCell()
-  ui.updateCell(event)
-  // gameOver api
 
+  //update VIEW array
+  actions.gameStatus()
+  //update api and mark Player's move
+  api.updateCell()
+    .then(ui.validClick(event))
+    .catch(ui.invalidClick)
+  // gameOver api
   //update ui with game status and declare winner
+  ui.declareWinner()
 }
 
 //Set Up Events
@@ -74,7 +75,9 @@ const onNewGame = event => {
 
   store.game.cells = ["","","","","","","","",""]
   store.game.turnNum = 1
+  store.game.over = false
   $('.board').text('')
+  // $('.board').on('click')
   console.log(store.game)
 }
 

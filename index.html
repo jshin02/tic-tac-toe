@@ -13,60 +13,63 @@
     </head>
     <body>
       <!-- User Documentation -->
-      <div class="user">
-        <h1>Tic-Tac-Toe</h1>
-        <section id="signup">
-          <h3>Sign Up A New Account</h3>
-          <form id="signup-form">
-            <input type="text" name="credentials[email]" placeholder="E-mail" required>
-            <input type="password" name="credentials[password]" placeholder="Password" required>
-            <input type="password" name="credentials[password_confirmation]" placeholder="Confirm Password" required>
-            <button type="submit">Sign Up</button>
-          </form>
-          <span id="signup-result"></span>
-        </section>
-        <section id="signin">
-          <h3>Sign In To Play</h3>
-          <form id="signin-form">
-            <input type="text" name="credentials[email]" placeholder="Email">
-            <input type="password" name="credentials[password]" placeholder="Password">
-            <button type="submit">Sign In</button>
-          </form>
-          <span id="signin-result"></span>
-        </section>
-        <section id="pwChange">
-          <h3>Change Password</h3>
-          <form id="pwChange-form">
-            <input type="text" name="passwords[old]" placeholder="Old Password">
-            <input type="text" name="passwords[new]" placeholder="New Password">
-            <button type="submit">Change</button>
-          </form>
-          <span id="pwChange-result"></span>
-        </section>
-        <section id="signout">
-          <button id="signout-button" type='submit'>Sign Out</button>
-          <span id="signout-result"></span>
-        </section>
-      </div>
-      <div class="gameboard">
-        <div class="box">
-          <div id="top-left" class="col-4 board" data-index=0></div>
-          <div id="top-middle" class="col-4 board" data-index=1></div>
-          <div id="top-right" class="col-4 board" data-index=2></div>
-          <div id="middle-left" class="col-4 board" data-index=3></div>
-          <div id="center" class="col-4 board" data-index=4></div>
-          <div id="middle-right" class="col-4 board" data-index=5></div>
-          <div id="bottom-left" class="col-4 board" data-index=6></div>
-          <div id="bottom-middle" class="col-4 board" data-index=7></div>
-          <div id="bottom-right" class="col-4 board" data-index=8></div>
+      <header>
+        <div id="header-image">
+          <img src="public/tic_tac_toe.svg.png" alt="tic-tac-toe" width="300">
         </div>
+        <div class="user">
+          <h1>Tic-Tac-Toe</h1>
+          <section id="signup">
+            <h3>Sign Up A New Account</h3>
+            <form id="signup-form">
+              <input type="text" name="credentials[email]" placeholder="E-mail" required>
+              <input type="password" name="credentials[password]" placeholder="Password" required>
+              <input type="password" name="credentials[password_confirmation]" placeholder="Confirm Password" required>
+              <button type="submit">Sign Up</button>
+            </form>
+            <span id="signup-result"></span>
+          </section>
+          <section id="signin">
+            <h3>Sign In To Play</h3>
+            <form id="signin-form">
+              <input type="text" name="credentials[email]" placeholder="Email">
+              <input type="password" name="credentials[password]" placeholder="Password">
+              <button type="submit">Sign In</button>
+            </form>
+            <span id="signin-result"></span>
+          </section>
+          <section id="signedIn">
+            <h3>Change Password</h3>
+            <form id="pwChange-form">
+              <input type="text" name="passwords[old]" placeholder="Old Password">
+              <input type="text" name="passwords[new]" placeholder="New Password">
+              <button type="submit">Change</button> <button id="signout-button" type='submit'>Sign Out</button>
+            </form>
+
+            <span id="pwChange-result"></span>
+          </section>
+          <section id="start-game">
+            <button id="game-button">New Game</button>
+            <span id="setup-result"></span>
+          </section>
+      </header>
       </div>
-      <div class="setup">
-        <div id="start-game">
-          <button id="game-button">New Game</button>
+      <main>
+        <h2 id="message-box"></h2>
+        <div class="gameboard">
+          <div class="box">
+            <div id="top-left" class="col-4 board" data-index=0></div>
+            <div id="top-middle" class="col-4 board" data-index=1></div>
+            <div id="top-right" class="col-4 board" data-index=2></div>
+            <div id="middle-left" class="col-4 board" data-index=3></div>
+            <div id="center" class="col-4 board" data-index=4></div>
+            <div id="middle-right" class="col-4 board" data-index=5></div>
+            <div id="bottom-left" class="col-4 board" data-index=6></div>
+            <div id="bottom-middle" class="col-4 board" data-index=7></div>
+            <div id="bottom-right" class="col-4 board" data-index=8></div>
+          </div>
         </div>
-        <span id="setup-result"></span>
-      </div>
+      </main>
     </body>
 
 </html>
