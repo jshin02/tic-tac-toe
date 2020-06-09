@@ -51,17 +51,19 @@ const onSquare = event => {
   console.log(event.target)
   store.game.cell.index=event.target.dataset.index
   //Update MODEL array and instructions
-  actions.cellStatus(store.game.cell.index)
-
-  //update VIEW array
-  actions.gameStatus()
-  //update api and mark Player's move
-  api.updateCell()
-    .then(ui.validClick(event))
-    .catch(ui.invalidClick)
-  // gameOver api
-  //update ui with game status and declare winner
-  ui.declareWinner()
+  if(actions.cellStatus(store.game.cell.index)){
+    //update VIEW array
+    actions.gameStatus()
+    //update api and mark Player's move
+    api.updateCell()
+      .then(ui.validClick(event))
+      .catch(ui.invalidClick)
+      ui.declareWinner()
+    }else{
+    // gameOver api
+    //update ui with game status and declare winner
+    ui.declareWinner()
+  }
 }
 
 //Set Up Events
@@ -76,12 +78,16 @@ const onNewGame = event => {
   store.game.cells = ["","","","","","","","",""]
   store.game.turnNum = 1
   store.game.over = false
-  $('.board').text('')
-  // $('.board').on('click')
+  $('.board').html('').removeClass('gamepiece')
   console.log(store.game)
 }
 
-
+const onGetStats = event => {
+  $('.board').hide()
+  api.getStats()
+    .then(ui.statsSuccess)
+    .catch(ui.statsFail)
+}
 
 module.exports = {
   onSignUp,
@@ -89,5 +95,6 @@ module.exports = {
   onPassChange,
   onSignOut,
   onSquare,
-  onNewGame
+  onNewGame,
+  onGetStats
 }

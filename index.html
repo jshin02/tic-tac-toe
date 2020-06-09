@@ -19,7 +19,7 @@
         </div>
         <div class="user">
           <h1>Tic-Tac-Toe</h1>
-          <section id="signup">
+          <section id="signup" class="registration">
             <h3>Sign Up A New Account</h3>
             <form id="signup-form">
               <input type="text" name="credentials[email]" placeholder="E-mail" required>
@@ -29,7 +29,7 @@
             </form>
             <span id="signup-result"></span>
           </section>
-          <section id="signin">
+          <section id="signin" class="registration">
             <h3>Sign In To Play</h3>
             <form id="signin-form">
               <input type="text" name="credentials[email]" placeholder="Email">
@@ -38,7 +38,7 @@
             </form>
             <span id="signin-result"></span>
           </section>
-          <section id="signedIn">
+          <section id="signedIn" class="user-options">
             <h3>Change Password</h3>
             <form id="pwChange-form">
               <input type="text" name="passwords[old]" placeholder="Old Password">
@@ -48,9 +48,9 @@
 
             <span id="pwChange-result"></span>
           </section>
-          <section id="start-game">
+          <section id="start-game" class="user-options">
             <button id="game-button">New Game</button>
-            <span id="setup-result"></span>
+            <button id="game-stats">Get Stats</button>
           </section>
       </header>
       </div>

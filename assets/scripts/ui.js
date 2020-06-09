@@ -10,9 +10,9 @@ const signUpFailure = () => {
 }
 const signInSuccess = data => {
   $("#signin-result").text("you're signed in")
+  $('.user-options').show()
+  // $('.board').show()
   store.user = data.user
-  $('#signedIn').show()
-  $('#start-game').show()
   console.log(store)
 }
 const signInFailure = () => {
@@ -34,7 +34,7 @@ const signOutFailure = data => {
 
 //Gameboard UI Events
 const validClick = event => {
-  $(event.target).text(store.game.cell.value)
+  $(event.target).addClass('gamepiece').html(store.game.cell.value)
   if((store.game.turnNum)%2===1){
     $('#message-box').text(`Player 1's turn`)
   }else{
@@ -48,7 +48,7 @@ const invalidClick = () => {
 //Game setup
 const createSuccess = data => {
   console.log(data)
-  $('#message-box').text('Created new game from api')
+  $('#message-box').text('Created new game')
   store.game.id=data.game._id
   $('.board').show()
 }
@@ -56,16 +56,35 @@ const createFailure = () => {
   $('#message-box').text('Failed to create new game')
 }
 
+const statsSuccess = data => {
+  let games = [];
+  let playerOne = 0;
+  let playerTwo = 0;
+  data.games.forEach(a => {
+    let num = 0;
+    for(let i=0; i<9; i++){
+      if(a.cells[i]!==''){
+        num++;
+      }
+    }
+    games.push(num)
+  })
+  games.forEach(a => (a%2===1)? playerOne++ : playerTwo++)
+  $('#message-box').text(`Player 1 won ${playerOne} times, and Player 2 won ${playerTwo} times.`)
+}
+
+const statsFailure = data => {
+  console.log('Failed to retrieve stats')
+}
+
 //outcomme
 const declareWinner = () => {
   if(store.game.turnNum>9){
     $('#message-box').text("It's a tie!")
-    $('.board').off('click')
   }else if(store.game.over){
     (store.game.turnNum-1)%2===1 ?
     $('#message-box').text("Player 1 wins") :
     $('#message-box').text("Player 2 wins")
-    $('.board').off('click')
   }
 }
 module.exports = {
@@ -81,5 +100,7 @@ module.exports = {
   createFailure,
   validClick,
   invalidClick,
+  statsSuccess,
+  statsFailure,
   declareWinner
 }

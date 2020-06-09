@@ -91,6 +91,15 @@ const updateCell = () => {
   })
 }
 
+const getStats = () => {
+  return $.ajax({
+    url: config.apiUrl + '/games?over=true',
+    method: 'GET',
+    headers:{
+      Authorization: "Token token="+store.user.token
+    }
+  })
+}
 
 module.exports = {
   signUp,
@@ -98,5 +107,6 @@ module.exports = {
   pwChange,
   signOut,
   updateCell,
-  createGame
+  createGame,
+  getStats
 }

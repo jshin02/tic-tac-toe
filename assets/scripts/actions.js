@@ -12,7 +12,7 @@ const playerTurn = () => {
 
 const cellStatus = (index) => {
   // console.log(event)
-  if(store.game.cells[index]==''){
+  if(store.game.cells[index]==''&&store.game.over===false){
     store.game.cell.value= playerTurn()
     //this is where MODEL BOARD GETS VALUE
     store.game.cells[index]=store.game.cell.value
@@ -45,14 +45,12 @@ const gameStatus = () => {
     console.log(charCondition)
     console.log(gameCondition)
     if(gameCondition){
+      store.game.over=true
+      console.log(store.game)
       break
     }else{
       i++
     }
-  }
-  if(gameCondition){
-    store.game.over=true
-    console.log(store.game)
   }
   return gameCondition
 }
