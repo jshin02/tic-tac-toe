@@ -12,19 +12,24 @@ h1, h2, h3, span{
   font-family: 'Londrina Solid', cursive;
 }
 h3{
-  font-size: 18px;
+  font-size: 22px;
 }
 h4{
   color: red;
   font-weight: 500px;
 }
 button{
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
   background-color: rgba(0,130,150,1);
   color: #edf0f1;
   border: 0px;
   font-family: 'Londrina Solid', cursive;
+  transition-property: background;
+  transition-duration: 350ms;
+}
+button:hover{
+  background-color: rgba(0,130,150,0.8);
 }
 
 // ****User Documentation Ruleset
@@ -37,37 +42,38 @@ header{
   flex-direction: column;
   align-items: flex-end;
 }
-.user-options{
+#signedIn{
   display: none;
 }
 section{
   text-align: right;
   margin-bottom: 10px;
 }
-
-h2{
-  text-align: center;
+span{
+  color: #edf0f1;
 }
 // **** Main Ruleset
+#user-options{
+  text-align: center;
+  display: none;
+}
+.options{
+  margin: 0 20px;
+  height: 40px;
+  width: 100px;
+}
+
 // **** Gameboard Ruleset
 .gameboard{
   display: flex;
   justify-content: center;
-}
-.gamepiece{
-  margin: 0px;
-  color: #edf0f1;
-  font-size: 70px;
-  font-weight: 500;
-  height: 0em;
-  // text-align: center;
-  font-family:'Kaushan Script', cursive;
 }
 .box{
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   width: 66%;
+  margin-bottom: 10px;
 }
 .board{
   height: 100px;
@@ -76,5 +82,17 @@ h2{
   padding: 0;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+}
+.gamepiece{
+  margin: 0px;
+  align-items: center;
+  color: #edf0f1;
+  font-size: 50px;
+  font-weight: 500;
+  font-family:'Kaushan Script', cursive;
+  transition-property: font-size;
+  transition-duration: 500ms;
+}
+main > h2{
+  text-align: center;
 }

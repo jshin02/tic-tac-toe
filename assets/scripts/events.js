@@ -50,25 +50,20 @@ const onSquare = event => {
   event.preventDefault()
   console.log(event.target)
   store.game.cell.index=event.target.dataset.index
-  //Update MODEL array and instructions
+  //Update MODEL array and instructions (is model array element empty?)
   if(actions.cellStatus(store.game.cell.index)){
-    //update VIEW array
+    //check if valid cell ends game
     actions.gameStatus()
-    //update api and mark Player's move
+    //update api and mark Player's move on VIEW array
     api.updateCell()
       .then(ui.validClick(event))
       .catch(ui.invalidClick)
       ui.declareWinner()
-    }else{
-    // gameOver api
-    //update ui with game status and declare winner
-    ui.declareWinner()
-  }
+    }
 }
 
 //Set Up Events
 const onNewGame = event => {
-  // event.preventDefault()
   api.createGame()
     .then(ui.createSuccess)
     .catch(ui.createFailure)

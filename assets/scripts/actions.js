@@ -25,34 +25,29 @@ const cellStatus = (index) => {
 }
 
 const gameStatus = () => {
-  let gameCondition=0;
   let xRow=0;
   let oRow=0;
   // for (let i=0; i<store.game.winners.length; i++){
   let i=0;
   while(i<8){
+    //check through each winning condition container
     let checkCondition = store.game.winners[i]
-    console.log(checkCondition)
+    //is each container (charCondition) filled with x's or o's?
     let charCondition=[]
     for (let j=0; j<checkCondition.length; j++){
       let boardValue = store.game.cells[checkCondition[j]]
       charCondition.push(boardValue)
     }
-    //Push into REAL MODEL here
      xRow= charCondition.every(a => a==='x' ? true : false);
      oRow= charCondition.every(a => a==='o' ? true : false);
-     gameCondition = (xRow===true || oRow===true) ? true : false;
-    console.log(charCondition)
-    console.log(gameCondition)
-    if(gameCondition){
-      store.game.over=true
-      console.log(store.game)
+     store.game.over = (xRow===true || oRow===true) ? true : false;
+    if(store.game.over){
       break
     }else{
       i++
     }
   }
-  return gameCondition
+  // return gameCondition
 }
 
 module.exports = {

@@ -3,38 +3,56 @@
 const store = require('./store')
 
 const signUpSuccess = (data) => {
-  $("#signup-result").text("it worked")
+  $('#registration-result').text("Welcome to the greatest game since rock, paper, scissors. Sign in below to play.")
+  $('#signup-form').trigger('reset')
 }
 const signUpFailure = () => {
-  $("#signup-result").text("you failed")
+  $('#registration-result').text("you failed")
+  $('#signup-form').trigger('reset')
 }
 const signInSuccess = data => {
-  $("#signin-result").text("you're signed in")
-  $('.user-options').show()
-  // $('.board').show()
+  $('#registration-result').text("Currently playing as "+data.user.email)
+  $('#user-options').show()
+  $('#signedIn').show()
+  $('.registration').hide()
   store.user = data.user
   console.log(store)
+  $('#signin-form').trigger('reset')
 }
 const signInFailure = () => {
-  $("#signin-result").text("you failed to sign in")
+  $("#registration-result").text("Email and Password not recognized")
+  $('#signin-form').trigger('reset')
 }
 const pwChangeSuccess = data => {
-  $("#pwChange-result").text("you have successfully changed password")
+  $('#registration-result').text("you have successfully changed password")
+  $('#pwChange-form').trigger('reset')
+  setTimeout(function(){
+    // alert("how's it going?")
+    $('#registration-result').text("Currently playing as "+data.user.email)
+  }, 2000);
 }
 const pwChangeFailure = () => {
-  $("#pwChange-result").text("you failed to change password")
+  $("#registration-result").text("you failed to change password")
 }
 const signOutSuccess = data => {
-  $("#pwChange-result").text("Goodbye, "+store.user.email)
+  $('#registration-result').text("Thanks for playing, "+store.user.email+"!")
+  $('.registration').show()
+  $('#user-options').hide()
+  $('#signedIn').hide()
+  $('#message-box').text('')
+  $('.board').hide()
+  $('#scoreboard').hide()
   store.user=null
+  store.game.oneScore=0;
+  store.game.twoScore=0;
 }
 const signOutFailure = data => {
-  $("#pwChange-result").text("Sign out failed")
+  $("#registration-result").text("Sign out failed")
 }
 
 //Gameboard UI Events
 const validClick = event => {
-  $(event.target).addClass('gamepiece').html(store.game.cell.value)
+  $(event.target).html(store.game.cell.value).addClass('gamepiece')
   if((store.game.turnNum)%2===1){
     $('#message-box').text(`Player 1's turn`)
   }else{
@@ -70,7 +88,7 @@ const statsSuccess = data => {
     games.push(num)
   })
   games.forEach(a => (a%2===1)? playerOne++ : playerTwo++)
-  $('#message-box').text(`Player 1 won ${playerOne} times, and Player 2 won ${playerTwo} times.`)
+  $('#message-box').text(`Player 1 won ${playerOne} time(s), and Player 2 won ${playerTwo} time(s).`)
 }
 
 const statsFailure = data => {
@@ -82,9 +100,15 @@ const declareWinner = () => {
   if(store.game.turnNum>9){
     $('#message-box').text("It's a tie!")
   }else if(store.game.over){
-    (store.game.turnNum-1)%2===1 ?
-    $('#message-box').text("Player 1 wins") :
-    $('#message-box').text("Player 2 wins")
+    if((store.game.turnNum-1)%2===1){
+      store.game.oneScore++
+      $('#message-box').text("Player 1 wins")
+      $('#scoreboard').show().text(`Player 1 - ${store.game.oneScore} : Player 2 - ${store.game.twoScore}`)
+    }else{
+      store.game.twoScore++
+      $('#message-box').text("Player 2 wins")
+      $('#scoreboard').show().text(`Player 1 - ${store.game.oneScore} : Player 2 - ${store.game.twoScore}`)
+    }
   }
 }
 module.exports = {

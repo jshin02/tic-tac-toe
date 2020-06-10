@@ -10,6 +10,8 @@ const store = {
       value: ''
     },
     turnNum: 1,
+    oneScore: 0,
+    twoScore: 0
   }
 }
 
