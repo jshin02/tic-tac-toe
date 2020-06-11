@@ -11,14 +11,17 @@ const playerTurn = () => {
 }
 
 const cellStatus = (index) => {
-  //console.log(event)
-  if(store.game.cells[index]==''&&store.game.over===false){
-    store.game.cell.value= playerTurn()
-    //this is where MODEL BOARD GETS VALUE
-    store.game.cells[index]=store.game.cell.value
-    console.log(store.game.cells)
-    store.game.turnNum += 1;
-    return true
+  if(store.opponent==='ai'&&store.game.turnNum%2===0&&store.game.over===false){
+    console.log('test')
+    return false
+  }else if(store.game.cells[index]==''&&store.game.over===false){
+      store.game.cell.value= playerTurn()
+      //this is where MODEL BOARD GETS VALUE
+      store.game.cells[index]=store.game.cell.value
+      console.log(store.game.cells)
+      store.game.turnNum += 1;
+      return true
+
   }else {
     return false//update UI with gameplay insructions
   }

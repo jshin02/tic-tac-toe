@@ -17,7 +17,6 @@ const onSignUp = event => {
     .then(ui.signUpSuccess)
     .catch(ui.signUpFailure)
 }
-
 const onSignIn = event => {
   event.preventDefault()
   let data = getFormFields(event.target)
@@ -27,7 +26,6 @@ const onSignIn = event => {
     .then(ui.signInSuccess)
     .catch(ui.signInFailure)
 }
-
 const onPassChange = event => {
   event.preventDefault();
   let data = getFormFields(event.target)
@@ -37,7 +35,6 @@ const onPassChange = event => {
     .then(ui.pwChangeSuccess)
     .catch(ui.pwChangeFailure)
 }
-
 const onSignOut = event => {
   event.preventDefault()
 
@@ -62,14 +59,12 @@ const onSquare = event => {
         .then(ui.declareWinner)
         .catch(ui.validClickFail)
       if(store.opponent=='ai'&&store.game.over===false){
-        //don't let user click
         setTimeout(aiSquare, 1500);
       }
     }else{
     ui.invalidClick()
     }
   }
-
 const aiSquare = event => {
   if(ai.cellStatus()){
     status.gameStatus()
@@ -78,6 +73,18 @@ const aiSquare = event => {
       .then(ui.declareWinner)
       .catch(ui.aiFailure)
   }
+}
+const boxIn = event => {
+  if(store.game.cells[event.target.dataset.index]===''&&store.game.over===false){
+    $(event.target).addClass('hover')
+  }else{
+    $(event.target).addClass('cancelled')
+  }
+}
+
+const boxOut = event => {
+  $(event.target).removeClass('hover')
+  $(event.target).removeClass('cancelled')
 }
 
 //Set Up Events
@@ -121,7 +128,9 @@ module.exports = {
   onPassChange,
   onSignOut,
   onSquare,
+  boxIn,
+  boxOut,
+  setOpponent,
   onNewGame,
-  onGetStats,
-  setOpponent
+  onGetStats
 }

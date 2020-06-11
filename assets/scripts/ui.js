@@ -59,7 +59,7 @@ const validClick = event => {
   if(store.game.over===false){
     if(store.opponent==='ai'&&(store.game.turnNum%2===0)){
       $('#message-box').text(`I'm thinking.`)
-    }else if((store.game.turnNum)%2===0){
+    }else if((store.game.turnNum)%2===0&&store.game.winner===false){
       $('#message-box').text(`Player 2's turn`)
     }else{
       $('#message-box').text(`Player 1's turn`)
@@ -71,7 +71,9 @@ const validClickFail = () => {
 }
 
 const invalidClick = () => {
-  if(store.game.over===false){
+  if(store.game.over===false&&store.opponent==='ai'){
+    $('#message-box').text('Umm, do you mind?')
+  }else if(store.game.over===false){
     $('#message-box').text(`That square has already been selected, click on an empty square to make a valid selection.`)
   }
 }

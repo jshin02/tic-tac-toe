@@ -6,6 +6,7 @@
 // use require without a reference to ensure a file is bundled
 // require('./example')
 const events = require('./events')
+const store = require('./store')
 
 
 $(() => {
@@ -18,7 +19,11 @@ $(() => {
 
   // Game events
   $('.board').on('click', events.onSquare)
-
+  // $('.board').on('hover', function(){
+  //   $('.board').css('background-color', 'green')
+  // })
+  // $('[data-index='+event.target.dataset.index+']')
+  $('.board').hover(events.boxIn, events.boxOut)
   // Setup events
   $('#game-button').on('click', events.onNewGame)
   $('#game-stats').on('click',events.onGetStats)

@@ -58,6 +58,7 @@ span{
 }
 .start-options{
   display: none;
+
 }
 #game-button{
   display: none;
@@ -100,6 +101,13 @@ main > h2{
   font-family:'Kaushan Script', cursive;
   transition-property: font-size;
   transition-duration: 500ms;
+}
+.hover{
+  background-color: rgba(0,130,150,0.3);
+  cursor: pointer;
+}
+.cancelled{
+  cursor: not-allowed;
 }
 
 @media only screen and (max-width: 1000px){
