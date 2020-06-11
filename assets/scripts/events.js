@@ -87,8 +87,10 @@ const setOpponent = event => {
   }else if(event.target.id==='vs-ai'){
     store.opponent = 'ai'
   }
-    $('.start-options').hide();
+    $('#vs-player').hide();
+    $('#vs-ai').hide();
     $('#game-button').show();
+    $('#scoreboard').text('');
 }
 
 const onNewGame = event => {
@@ -103,7 +105,10 @@ const onNewGame = event => {
 }
 
 const onGetStats = event => {
-  $('.board').fadeOut()
+  $('.board').fadeOut();
+  $('#game-button').hide();
+  $('#vs-player').show();
+  $('#vs-ai').show();
   api.getStats()
     .then(ui.statsSuccess)
     .catch(ui.statsFail)

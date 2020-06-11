@@ -46,9 +46,10 @@ const gameStatus = () => {
      //   store.game.winner === true;
      // }else{
      //   store.game.over===false;
+     //   store.game.winner === false;
      // }
      store.game.over = (xRow===true || oRow===true) ? true : false;
-     store.game.winner = (xRow===true || oRow===true) ? true: false;
+     store.game.winner = (xRow===true || oRow===true) ? true : false;
     if(store.game.over){
       break
     }else{

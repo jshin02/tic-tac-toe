@@ -13,6 +13,7 @@ const signUpFailure = () => {
 }
 const signInSuccess = data => {
   $('#registration-result').text("Currently playing as "+data.user.email)
+  $('#user-options').show()
   $('.start-options').show()
   $('#signedIn').show()
   $('.registration').hide()
