@@ -11,12 +11,12 @@ const playerTurn = () => {
 }
 
 const cellStatus = (index) => {
-  // console.log(event)
+  //console.log(event)
   if(store.game.cells[index]==''&&store.game.over===false){
     store.game.cell.value= playerTurn()
     //this is where MODEL BOARD GETS VALUE
     store.game.cells[index]=store.game.cell.value
-    console.log(store)
+    console.log(store.game.cells)
     store.game.turnNum += 1;
     return true
   }else {
@@ -40,14 +40,21 @@ const gameStatus = () => {
     }
      xRow= charCondition.every(a => a==='x' ? true : false);
      oRow= charCondition.every(a => a==='o' ? true : false);
+     console.log(xRow,oRow)
+     // if(xRow===true || oRow===true){
+     //   store.game.over === true;
+     //   store.game.winner === true;
+     // }else{
+     //   store.game.over===false;
+     // }
      store.game.over = (xRow===true || oRow===true) ? true : false;
+     store.game.winner = (xRow===true || oRow===true) ? true: false;
     if(store.game.over){
       break
     }else{
       i++
     }
   }
-  // return gameCondition
 }
 
 module.exports = {

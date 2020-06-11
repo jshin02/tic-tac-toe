@@ -2,6 +2,7 @@
 'use strict'
 const store = require('./store')
 
+//User Documentation Results
 const signUpSuccess = (data) => {
   $('#registration-result').text("Welcome to the greatest game since rock, paper, scissors. Sign in below to play.")
   $('#signup-form').trigger('reset')
@@ -12,7 +13,7 @@ const signUpFailure = () => {
 }
 const signInSuccess = data => {
   $('#registration-result').text("Currently playing as "+data.user.email)
-  $('#user-options').show()
+  $('.start-options').show()
   $('#signedIn').show()
   $('.registration').hide()
   store.user = data.user
@@ -27,8 +28,7 @@ const pwChangeSuccess = data => {
   $('#registration-result').text("you have successfully changed password")
   $('#pwChange-form').trigger('reset')
   setTimeout(function(){
-    // alert("how's it going?")
-    $('#registration-result').text("Currently playing as "+data.user.email)
+    $('#registration-result').text(`Contine playing Tic-Tac-Toe`)
   }, 2000);
 }
 const pwChangeFailure = () => {
@@ -39,12 +39,14 @@ const signOutSuccess = data => {
   $('.registration').show()
   $('#user-options').hide()
   $('#signedIn').hide()
-  $('#message-box').text('')
-  $('.board').hide()
-  $('#scoreboard').hide()
+  $('#message-box').fadeOut('fast')
+  $('.board').fadeOut('fast')
+  $('#scoreboard').fadeOut('fast')
   store.user=null
   store.game.oneScore=0;
   store.game.twoScore=0;
+  store.game.yourScore=0;
+  store.game.aiScore=0;
 }
 const signOutFailure = data => {
   $("#registration-result").text("Sign out failed")
@@ -53,20 +55,41 @@ const signOutFailure = data => {
 //Gameboard UI Events
 const validClick = event => {
   $(event.target).html(store.game.cell.value).addClass('gamepiece')
-  if((store.game.turnNum)%2===1){
-    $('#message-box').text(`Player 1's turn`)
-  }else{
-    $('#message-box').text(`Player 2's turn`)
+  if(store.game.over===false){
+    if(store.opponent==='ai'&&(store.game.turnNum%2===0)){
+      $('#message-box').text(`I'm thinking.`)
+    }else if((store.game.turnNum)%2===0){
+      $('#message-box').text(`Player 2's turn`)
+    }else{
+      $('#message-box').text(`Player 1's turn`)
+    }
   }
 }
+const validClickFail = () => {
+  $('#message-box').text('Internal malfunction')
+}
+
 const invalidClick = () => {
+  if(store.game.over===false){
     $('#message-box').text(`That square has already been selected, click on an empty square to make a valid selection.`)
+  }
+}
+
+const aiSuccess = (data) => {
+  $('[data-index='+store.game.cell.index+']').html(store.game.cell.value).addClass('gamepiece')
+  if(store.game.over===false){
+    $('#message-box').text(`Your turn`)
+  }
+}
+
+const aiFailure = () => {
+
 }
 
 //Game setup
 const createSuccess = data => {
   console.log(data)
-  $('#message-box').text('Created new game')
+  $('#message-box').show().text('Created New Game')
   store.game.id=data.game._id
   $('.board').show()
 }
@@ -88,19 +111,31 @@ const statsSuccess = data => {
     games.push(num)
   })
   games.forEach(a => (a%2===1)? playerOne++ : playerTwo++)
-  $('#message-box').text(`Player 1 won ${playerOne} time(s), and Player 2 won ${playerTwo} time(s).`)
+  $('#message-box').text(`Player 1 won ${playerOne} time(s), and Player 2 won ${playerTwo} time(s).`).fadeIn(2000)
 }
 
 const statsFailure = data => {
   console.log('Failed to retrieve stats')
 }
 
-//outcomme
+//Outcome Messaging
 const declareWinner = () => {
-  if(store.game.turnNum>9){
+  console.log(store);
+  if(store.game.turnNum>9&&store.game.winner===false){
     $('#message-box').text("It's a tie!")
-  }else if(store.game.over){
-    if((store.game.turnNum-1)%2===1){
+  }else if(store.opponent==='ai'){
+      if(store.game.over&&store.game.turnNum%2===1){
+        store.game.aiScore++
+        $('#message-box').text("I win!")
+        $('#scoreboard').show().text(`You - ${store.game.yourScore} : Me - ${store.game.aiScore}`)
+      }else if(store.game.over&&store.game.turnNum%2===0){
+        store.game.yourScore++
+        $('#message-box').text("Ugh, you win")
+        $('#scoreboard').show().text(`You - ${store.game.yourScore} : Me - ${store.game.aiScore}`)
+      }
+  }else if(store.game.over&&store.opponent==='player'){
+    console.log(store.game);
+    if(store.game.turnNum%2===0){
       store.game.oneScore++
       $('#message-box').text("Player 1 wins")
       $('#scoreboard').show().text(`Player 1 - ${store.game.oneScore} : Player 2 - ${store.game.twoScore}`)
@@ -123,6 +158,9 @@ module.exports = {
   createSuccess,
   createFailure,
   validClick,
+  validClickFail,
+  aiSuccess,
+  aiFailure,
   invalidClick,
   statsSuccess,
   statsFailure,

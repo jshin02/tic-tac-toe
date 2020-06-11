@@ -55,12 +55,20 @@ span{
 // **** Main Ruleset
 #user-options{
   text-align: center;
+}
+.start-options{
+  display: none;
+}
+#game-button{
   display: none;
 }
 .options{
   margin: 0 20px;
   height: 40px;
   width: 100px;
+}
+main > h2{
+  text-align: center;
 }
 
 // **** Gameboard Ruleset
@@ -72,7 +80,7 @@ span{
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 66%;
+  // width: 66%;
   margin-bottom: 10px;
 }
 .board{
@@ -93,6 +101,31 @@ span{
   transition-property: font-size;
   transition-duration: 500ms;
 }
-main > h2{
-  text-align: center;
+
+@media only screen and (max-width: 1000px){
+  .user{
+    width: 240px;
+    border: 1px solid green;
+  }
+  .box{
+    width: 66%;
+  }
+  @media (max-width: 800px){
+    #header-image > img{
+      width: 200px
+    }
+  }
+  @media (max-width: 600px){
+    .board{
+      height: 60px;
+    }
+    .gamepiece{
+      font-size: 30px;
+    }
+  }
+}
+@media only screen and (min-width: 1000px){
+  .box{
+    width: 640px;
+  }
 }

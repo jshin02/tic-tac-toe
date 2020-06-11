@@ -22,4 +22,6 @@ $(() => {
   // Setup events
   $('#game-button').on('click', events.onNewGame)
   $('#game-stats').on('click',events.onGetStats)
+  $('#vs-player').on('click', events.setOpponent)
+  $('#vs-ai').on('click', events.setOpponent)
 })

@@ -4,7 +4,8 @@ const getFormFields = require('./../../lib/get-form-fields')
 const api = require('./api')
 const ui = require('./ui')
 const store=require('./store')
-const actions=require('./actions')
+const status=require('./status')
+const ai = require('./ai')
 // User Events
 const onSignUp = event => {
   event.preventDefault();
@@ -46,39 +47,63 @@ const onSignOut = event => {
 }
 
 //Gameboard events
+//in on square, we're going to check against who we're playing against.
+//if turn number is even && store.opponent is store.computer, have computer generate value.
 const onSquare = event => {
-  event.preventDefault()
   console.log(event.target)
-  store.game.cell.index=event.target.dataset.index
-  //Update MODEL array and instructions (is model array element empty?)
-  if(actions.cellStatus(store.game.cell.index)){
-    //check if valid cell ends game
-    actions.gameStatus()
-    //update api and mark Player's move on VIEW array
-    api.updateCell()
-      .then(ui.validClick(event))
-      .catch(ui.invalidClick)
-      ui.declareWinner()
+    store.game.cell.index=event.target.dataset.index
+    //Update MODEL array and instructions (is model array element empty?)
+    if(status.cellStatus(store.game.cell.index)){
+      //check if valid cell ends game
+      status.gameStatus()
+      ui.validClick(event)
+      //update api and mark Player's move on VIEW array
+      api.updateCell()
+        .then(ui.declareWinner)
+        .catch(ui.validClickFail)
+      if(store.opponent=='ai'&&store.game.over===false){
+        setTimeout(aiSquare, 1500);
+      }
+    }else{
+    ui.invalidClick()
     }
+  }
+
+const aiSquare = event => {
+  if(ai.cellStatus()){
+    status.gameStatus()
+    ui.aiSuccess()
+    api.updateCell()
+      .then(ui.declareWinner)
+      .catch(ui.aiFailure)
+  }
 }
 
 //Set Up Events
+const setOpponent = event => {
+  event.preventDefault()
+  if(event.target.id==='vs-player'){
+    store.opponent = 'player'
+  }else if(event.target.id==='vs-ai'){
+    store.opponent = 'ai'
+  }
+    $('.start-options').hide();
+    $('#game-button').show();
+}
+
 const onNewGame = event => {
   api.createGame()
     .then(ui.createSuccess)
     .catch(ui.createFailure)
 
-  api.updateCell
-
   store.game.cells = ["","","","","","","","",""]
   store.game.turnNum = 1
   store.game.over = false
-  $('.board').html('').removeClass('gamepiece')
-  console.log(store.game)
+  $('.board').html('').fadeIn(1000).removeClass('gamepiece')
 }
 
 const onGetStats = event => {
-  $('.board').hide()
+  $('.board').fadeOut()
   api.getStats()
     .then(ui.statsSuccess)
     .catch(ui.statsFail)
@@ -91,5 +116,6 @@ module.exports = {
   onSignOut,
   onSquare,
   onNewGame,
-  onGetStats
+  onGetStats,
+  setOpponent
 }
