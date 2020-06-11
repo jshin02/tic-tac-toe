@@ -62,6 +62,7 @@ const onSquare = event => {
         .then(ui.declareWinner)
         .catch(ui.validClickFail)
       if(store.opponent=='ai'&&store.game.over===false){
+        //don't let user click
         setTimeout(aiSquare, 1500);
       }
     }else{
