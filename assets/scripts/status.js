@@ -47,6 +47,7 @@ const gameStatus = () => {
      store.game.over = (xRow===true || oRow===true) ? true : false;
      store.game.winner = (xRow===true || oRow===true) ? true : false;
     if(store.game.over){
+      store.game.wIndex=i;
       break
     }else{
       i++

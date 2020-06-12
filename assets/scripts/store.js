@@ -14,9 +14,11 @@ const store = {
     oneScore: 0,
     twoScore: 0,
     yourScore: 0,
-    aiScore: 0
+    aiScore: 0,
+    wIndex: null,
   },
   opponent: 'player',
+  interval: '',
   // revert:["top-left","top-middle","top-right","middle-left","center","middle-right","bottom-left","bottom-middle","bottom-right"]
 }
 

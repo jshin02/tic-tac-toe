@@ -109,7 +109,8 @@ const onNewGame = event => {
   store.game.cells = ["","","","","","","","",""]
   store.game.turnNum = 1
   store.game.over = false
-  $('.board').html('').fadeIn(1000).removeClass('gamepiece')
+  clearInterval(store.interval)
+  $('.board').html('').fadeIn(1000).removeClass('blink')
 }
 
 const onGetStats = event => {

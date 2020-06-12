@@ -122,8 +122,21 @@ const statsFailure = data => {
 }
 
 //Outcome Messaging
+
+const blinkCondition = () => {
+  let firstBox = store.game.winners[store.game.wIndex][0]
+  let secondBox = store.game.winners[store.game.wIndex][1]
+  let thirdBox = store.game.winners[store.game.wIndex][2]
+      store.interval = setInterval(function(){
+        $('[data-index='+firstBox+']').hasClass('blink') ? $('[data-index='+firstBox+']').removeClass('blink') : $('[data-index='+firstBox+']').addClass('blink');
+        $('[data-index='+secondBox+']').hasClass('blink') ? $('[data-index='+secondBox+']').removeClass('blink') : $('[data-index='+secondBox+']').addClass('blink');
+        $('[data-index='+thirdBox+']').hasClass('blink') ? $('[data-index='+thirdBox+']').removeClass('blink') : $('[data-index='+thirdBox+']').addClass('blink');
+      }, 700)
+}
 const declareWinner = () => {
-  console.log(store);
+  if(store.game.winner){
+    blinkCondition()
+  }
   if(store.game.turnNum>9&&store.game.winner===false){
     $('#message-box').text("It's a tie!")
   }else if(store.opponent==='ai'){

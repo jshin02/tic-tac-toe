@@ -81,17 +81,25 @@ main > h2{
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  // width: 66%;
   margin-bottom: 10px;
+  margin: auto;
 }
 .board{
   height: 100px;
-  border: 1px solid #edf0f1;
+  border-bottom: 1px solid #edf0f1;
+  border-right: 1px solid #edf0f1;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
+  &:nth-child(3n){
+    border-right: 0;
+  }
+  &:nth-last-child(-1n+3){
+    border-bottom: 0;
+  }
 }
+
 .gamepiece{
   margin: 0px;
   align-items: center;
@@ -109,11 +117,13 @@ main > h2{
 .cancelled{
   cursor: not-allowed;
 }
+.blink{
+  background-color: rgba(46,204,113,0.2)
+}
 
 @media only screen and (max-width: 1000px){
   .user{
     width: 240px;
-    border: 1px solid green;
   }
   .box{
     width: 66%;
