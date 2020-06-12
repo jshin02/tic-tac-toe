@@ -18,7 +18,6 @@ const signInSuccess = data => {
   $('#signedIn').show()
   $('.registration').hide()
   store.user = data.user
-  console.log(store)
   $('#signin-form').trigger('reset')
 }
 const signInFailure = () => {
@@ -86,12 +85,11 @@ const aiSuccess = (data) => {
 }
 
 const aiFailure = () => {
-
+  $('#message-box').text('Internal malfunction. Probably your fault though.')
 }
 
 //Game setup
 const createSuccess = data => {
-  console.log(data)
   $('#message-box').show().text('Created New Game')
   store.game.id=data.game._id
   $('.board').show()
@@ -99,7 +97,6 @@ const createSuccess = data => {
 const createFailure = () => {
   $('#message-box').text('Failed to create new game')
 }
-
 const statsSuccess = data => {
   let games = [];
   let playerOne = 0;
@@ -116,13 +113,24 @@ const statsSuccess = data => {
   games.forEach(a => (a%2===1)? playerOne++ : playerTwo++)
   $('#message-box').text(`Player 1 won ${playerOne} time(s), and Player 2 won ${playerTwo} time(s).`).fadeIn(2000)
 }
-
 const statsFailure = data => {
-  console.log('Failed to retrieve stats')
+  $('#message-box').text('Failed to retrieve stats')
 }
-
+// const gamesNotOver = data => {
+//   console.log(data)
+//   let games = []
+//   for (let i=0; i<3; i++){
+//     // console.log('game'+i)
+//     store.tbd['game'+i].cells=data.games[i].cells
+//     store.tbd['game'+i].id=data.games[i]._id
+//     store.tbd['game'+i].over=data.games[i].over
+//   }
+//   console.log(store.tbd)
+// }
+// const falseGamesFail = data => {
+//   console.log('fail')
+// }
 //Outcome Messaging
-
 const blinkCondition = () => {
   let firstBox = store.game.winners[store.game.wIndex][0]
   let secondBox = store.game.winners[store.game.wIndex][1]
@@ -150,7 +158,6 @@ const declareWinner = () => {
         $('#scoreboard').show().text(`You - ${store.game.yourScore} : Me - ${store.game.aiScore}`)
       }
   }else if(store.game.over&&store.opponent==='player'){
-    console.log(store.game);
     if(store.game.turnNum%2===0){
       store.game.oneScore++
       $('#message-box').text("Player 1 wins")

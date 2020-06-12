@@ -19,14 +19,12 @@ $(() => {
 
   // Game events
   $('.board').on('click', events.onSquare)
-  // $('.board').on('hover', function(){
-  //   $('.board').css('background-color', 'green')
-  // })
-  // $('[data-index='+event.target.dataset.index+']')
   $('.board').hover(events.boxIn, events.boxOut)
+
   // Setup events
   $('#game-button').on('click', events.onNewGame)
   $('#game-stats').on('click',events.onGetStats)
   $('#vs-player').on('click', events.setOpponent)
   $('#vs-ai').on('click', events.setOpponent)
+  // $('#not-over').on('click', events.onGameTBD)
 })

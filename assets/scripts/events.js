@@ -11,7 +11,6 @@ const onSignUp = event => {
   event.preventDefault();
 
   let data = getFormFields(event.target)
-  console.log(data)
 
   api.signUp(data)
     .then(ui.signUpSuccess)
@@ -20,7 +19,6 @@ const onSignUp = event => {
 const onSignIn = event => {
   event.preventDefault()
   let data = getFormFields(event.target)
-  console.log(data)
 
   api.signIn(data)
     .then(ui.signInSuccess)
@@ -29,7 +27,6 @@ const onSignIn = event => {
 const onPassChange = event => {
   event.preventDefault();
   let data = getFormFields(event.target)
-  console.log(data)
 
   api.pwChange(data)
     .then(ui.pwChangeSuccess)
@@ -47,7 +44,6 @@ const onSignOut = event => {
 //in onSquare, we're going to check against who we're playing against.
 //if turn number is even && store.opponent is store.computer, have computer generate value.
 const onSquare = event => {
-  console.log(event.target)
     store.game.cell.index=event.target.dataset.index
     //Update MODEL array and instructions (is model array element empty?)
     if(status.cellStatus(store.game.cell.index)){
@@ -122,6 +118,15 @@ const onGetStats = event => {
     .then(ui.statsSuccess)
     .catch(ui.statsFail)
 }
+
+//model boards of unfinished games -> feature++
+// const onGameTBD = event => {
+//   console.log(event);
+//   $('.modelboard').show()
+//   api.gamesTBD()
+//     .then(ui.gamesNotOver)
+//     .catch(ui.falseGamesFail)
+// }
 
 module.exports = {
   onSignUp,

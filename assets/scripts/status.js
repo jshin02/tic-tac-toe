@@ -12,13 +12,11 @@ const playerTurn = () => {
 
 const cellStatus = (index) => {
   if(store.opponent==='ai'&&store.game.turnNum%2===0&&store.game.over===false){
-    console.log('test')
     return false
   }else if(store.game.cells[index]==''&&store.game.over===false){
       store.game.cell.value= playerTurn()
       //this is where MODEL BOARD GETS VALUE
       store.game.cells[index]=store.game.cell.value
-      console.log(store.game.cells)
       store.game.turnNum += 1;
       return true
 
@@ -43,7 +41,6 @@ const gameStatus = () => {
     }
      xRow= charCondition.every(a => a==='x' ? true : false);
      oRow= charCondition.every(a => a==='o' ? true : false);
-     console.log(xRow,oRow)
      store.game.over = (xRow===true || oRow===true) ? true : false;
      store.game.winner = (xRow===true || oRow===true) ? true : false;
     if(store.game.over){

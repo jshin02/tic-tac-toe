@@ -19,7 +19,23 @@ const store = {
   },
   opponent: 'player',
   interval: '',
-  // revert:["top-left","top-middle","top-right","middle-left","center","middle-right","bottom-left","bottom-middle","bottom-right"]
+  tbd:{
+    game0:{
+      cells: '',
+      id: 0,
+      turnNum: 0,
+    },
+    game1:{
+      cells: '',
+      id: 0,
+      turnNum: 0,
+    },
+    game2: {
+      cells: '',
+      id: 0,
+      turnNum: 0,
+    }
+  }
 }
 
 module.exports = store

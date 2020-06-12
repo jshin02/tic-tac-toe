@@ -121,6 +121,35 @@ main > h2{
   background-color: rgba(46,204,113,0.2)
 }
 
+//  **** Game Models
+// .models{
+//   height: 200px;
+//   width: 200px;
+// }
+// .box1{
+//   display: flex;
+//   flex-wrap: wrap;
+// }
+// .modelboard{
+//   height: 67px;
+//   width: 67px;
+//   border-bottom: 1px solid #edf0f1;
+//   border-right: 1px solid #edf0f1;
+//   margin: 0;
+//   padding: 0;
+//   display: flex;
+//   justify-content: center;
+//   &:nth-child(3n){
+//     border-right: 0;
+//   }
+//   &:nth-last-child(-1n+3){
+//     border-bottom: 0;
+//   }
+// }
+
+
+
+// **** Media Queries
 @media only screen and (max-width: 1000px){
   .user{
     width: 240px;

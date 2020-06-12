@@ -19,7 +19,6 @@ const signUp = formData => {
 }
 
 const signIn = formData => {
-  console.log(formData);
   return $.ajax({
     method: 'POST',
     url: config.apiUrl+'/sign-in',
@@ -72,7 +71,6 @@ const createGame = () => {
 }
 //Gameplay
 const updateCell = () => {
-  console.log(store)
   return $.ajax({
     url: config.apiUrl + '/games/'+store.game.id,
     method: 'PATCH',
@@ -101,6 +99,15 @@ const getStats = () => {
   })
 }
 
+const gamesTBD = () => {
+  return $.ajax({
+    url: config.apiUrl + '/games?over=false',
+    method: 'GET',
+    headers:{
+      Authorization: "Token token="+store.user.token
+    }
+  })
+}
 module.exports = {
   signUp,
   signIn,
@@ -108,5 +115,6 @@ module.exports = {
   signOut,
   updateCell,
   createGame,
-  getStats
+  getStats,
+  gamesTBD
 }
