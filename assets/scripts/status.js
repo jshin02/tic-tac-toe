@@ -44,13 +44,6 @@ const gameStatus = () => {
      xRow= charCondition.every(a => a==='x' ? true : false);
      oRow= charCondition.every(a => a==='o' ? true : false);
      console.log(xRow,oRow)
-     // if(xRow===true || oRow===true){
-     //   store.game.over === true;
-     //   store.game.winner === true;
-     // }else{
-     //   store.game.over===false;
-     //   store.game.winner === false;
-     // }
      store.game.over = (xRow===true || oRow===true) ? true : false;
      store.game.winner = (xRow===true || oRow===true) ? true : false;
     if(store.game.over){

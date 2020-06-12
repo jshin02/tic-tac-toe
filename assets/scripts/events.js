@@ -44,7 +44,7 @@ const onSignOut = event => {
 }
 
 //Gameboard events
-//in on square, we're going to check against who we're playing against.
+//in onSquare, we're going to check against who we're playing against.
 //if turn number is even && store.opponent is store.computer, have computer generate value.
 const onSquare = event => {
   console.log(event.target)
