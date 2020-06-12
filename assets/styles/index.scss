@@ -111,7 +111,7 @@ main > h2{
   transition-duration: 500ms;
 }
 .hover{
-  background-color: rgba(0,130,150,0.3);
+  background: radial-gradient(rgba(0,130,150,0.4), rgba(0,130,150,0.1));
   cursor: pointer;
 }
 .cancelled{

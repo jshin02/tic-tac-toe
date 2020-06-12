@@ -1411,8 +1411,24 @@ var store = {
     wIndex: null
   },
   opponent: 'player',
-  interval: ''
-  // revert:["top-left","top-middle","top-right","middle-left","center","middle-right","bottom-left","bottom-middle","bottom-right"]
+  interval: '',
+  tbd: {
+    game0: {
+      cells: '',
+      id: 0,
+      turnNum: 0
+    },
+    game1: {
+      cells: '',
+      id: 0,
+      turnNum: 0
+    },
+    game2: {
+      cells: '',
+      id: 0,
+      turnNum: 0
+    }
+  }
 };
 
 module.exports = store;
@@ -16550,16 +16566,14 @@ $(function () {
 
   // Game events
   $('.board').on('click', events.onSquare);
-  // $('.board').on('hover', function(){
-  //   $('.board').css('background-color', 'green')
-  // })
-  // $('[data-index='+event.target.dataset.index+']')
   $('.board').hover(events.boxIn, events.boxOut);
+
   // Setup events
   $('#game-button').on('click', events.onNewGame);
   $('#game-stats').on('click', events.onGetStats);
   $('#vs-player').on('click', events.setOpponent);
   $('#vs-ai').on('click', events.setOpponent);
+  // $('#not-over').on('click', events.onGameTBD)
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)))
 
@@ -16582,21 +16596,18 @@ var onSignUp = function onSignUp(event) {
   event.preventDefault();
 
   var data = getFormFields(event.target);
-  console.log(data);
 
   api.signUp(data).then(ui.signUpSuccess).catch(ui.signUpFailure);
 };
 var onSignIn = function onSignIn(event) {
   event.preventDefault();
   var data = getFormFields(event.target);
-  console.log(data);
 
   api.signIn(data).then(ui.signInSuccess).catch(ui.signInFailure);
 };
 var onPassChange = function onPassChange(event) {
   event.preventDefault();
   var data = getFormFields(event.target);
-  console.log(data);
 
   api.pwChange(data).then(ui.pwChangeSuccess).catch(ui.pwChangeFailure);
 };
@@ -16610,7 +16621,6 @@ var onSignOut = function onSignOut(event) {
 //in onSquare, we're going to check against who we're playing against.
 //if turn number is even && store.opponent is store.computer, have computer generate value.
 var onSquare = function onSquare(event) {
-  console.log(event.target);
   store.game.cell.index = event.target.dataset.index;
   //Update MODEL array and instructions (is model array element empty?)
   if (status.cellStatus(store.game.cell.index)) {
@@ -16677,6 +16687,15 @@ var onGetStats = function onGetStats(event) {
   $('#vs-ai').show();
   api.getStats().then(ui.statsSuccess).catch(ui.statsFail);
 };
+
+//model boards of unfinished games -> feature++
+// const onGameTBD = event => {
+//   console.log(event);
+//   $('.modelboard').show()
+//   api.gamesTBD()
+//     .then(ui.gamesNotOver)
+//     .catch(ui.falseGamesFail)
+// }
 
 module.exports = {
   onSignUp: onSignUp,
@@ -16801,7 +16820,6 @@ var signUp = function signUp(formData) {
 };
 
 var signIn = function signIn(formData) {
-  console.log(formData);
   return $.ajax({
     method: 'POST',
     url: config.apiUrl + '/sign-in',
@@ -16854,7 +16872,6 @@ var createGame = function createGame() {
 };
 //Gameplay
 var updateCell = function updateCell() {
-  console.log(store);
   return $.ajax({
     url: config.apiUrl + '/games/' + store.game.id,
     method: 'PATCH',
@@ -16883,6 +16900,15 @@ var getStats = function getStats() {
   });
 };
 
+var gamesTBD = function gamesTBD() {
+  return $.ajax({
+    url: config.apiUrl + '/games?over=false',
+    method: 'GET',
+    headers: {
+      Authorization: "Token token=" + store.user.token
+    }
+  });
+};
 module.exports = {
   signUp: signUp,
   signIn: signIn,
@@ -16890,7 +16916,8 @@ module.exports = {
   signOut: signOut,
   updateCell: updateCell,
   createGame: createGame,
-  getStats: getStats
+  getStats: getStats,
+  gamesTBD: gamesTBD
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)))
 
@@ -16943,7 +16970,6 @@ var signInSuccess = function signInSuccess(data) {
   $('#signedIn').show();
   $('.registration').hide();
   store.user = data.user;
-  console.log(store);
   $('#signin-form').trigger('reset');
 };
 var signInFailure = function signInFailure() {
@@ -17010,11 +17036,12 @@ var aiSuccess = function aiSuccess(data) {
   }
 };
 
-var aiFailure = function aiFailure() {};
+var aiFailure = function aiFailure() {
+  $('#message-box').text('Internal malfunction. Probably your fault though.');
+};
 
 //Game setup
 var createSuccess = function createSuccess(data) {
-  console.log(data);
   $('#message-box').show().text('Created New Game');
   store.game.id = data.game._id;
   $('.board').show();
@@ -17022,7 +17049,6 @@ var createSuccess = function createSuccess(data) {
 var createFailure = function createFailure() {
   $('#message-box').text('Failed to create new game');
 };
-
 var statsSuccess = function statsSuccess(data) {
   var games = [];
   var playerOne = 0;
@@ -17041,13 +17067,24 @@ var statsSuccess = function statsSuccess(data) {
   });
   $('#message-box').text('Player 1 won ' + playerOne + ' time(s), and Player 2 won ' + playerTwo + ' time(s).').fadeIn(2000);
 };
-
 var statsFailure = function statsFailure(data) {
-  console.log('Failed to retrieve stats');
+  $('#message-box').text('Failed to retrieve stats');
 };
-
+// const gamesNotOver = data => {
+//   console.log(data)
+//   let games = []
+//   for (let i=0; i<3; i++){
+//     // console.log('game'+i)
+//     store.tbd['game'+i].cells=data.games[i].cells
+//     store.tbd['game'+i].id=data.games[i]._id
+//     store.tbd['game'+i].over=data.games[i].over
+//   }
+//   console.log(store.tbd)
+// }
+// const falseGamesFail = data => {
+//   console.log('fail')
+// }
 //Outcome Messaging
-
 var blinkCondition = function blinkCondition() {
   var firstBox = store.game.winners[store.game.wIndex][0];
   var secondBox = store.game.winners[store.game.wIndex][1];
@@ -17075,7 +17112,6 @@ var declareWinner = function declareWinner() {
       $('#scoreboard').show().text('You - ' + store.game.yourScore + ' : Me - ' + store.game.aiScore);
     }
   } else if (store.game.over && store.opponent === 'player') {
-    console.log(store.game);
     if (store.game.turnNum % 2 === 0) {
       store.game.oneScore++;
       $('#message-box').text("Player 1 wins");
@@ -17129,13 +17165,11 @@ var playerTurn = function playerTurn() {
 
 var cellStatus = function cellStatus(index) {
   if (store.opponent === 'ai' && store.game.turnNum % 2 === 0 && store.game.over === false) {
-    console.log('test');
     return false;
   } else if (store.game.cells[index] == '' && store.game.over === false) {
     store.game.cell.value = playerTurn();
     //this is where MODEL BOARD GETS VALUE
     store.game.cells[index] = store.game.cell.value;
-    console.log(store.game.cells);
     store.game.turnNum += 1;
     return true;
   } else {
@@ -17163,7 +17197,6 @@ var gameStatus = function gameStatus() {
     oRow = charCondition.every(function (a) {
       return a === 'o' ? true : false;
     });
-    console.log(xRow, oRow);
     store.game.over = xRow === true || oRow === true ? true : false;
     store.game.winner = xRow === true || oRow === true ? true : false;
     if (store.game.over) {
