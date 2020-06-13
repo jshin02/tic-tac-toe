@@ -10,8 +10,8 @@ const playerTurn = () => {
   }
 }
 
+//generate array of blank squares, random generate random number from length, place it in back where cell is blank
 const cellStatus = () => {
-  //generate array of blank squares, random generate random number from length, place it in back where cell is blank
   store.game.cell.value=playerTurn()
   if(store.game.over===false){
     let emptySpaces = [];

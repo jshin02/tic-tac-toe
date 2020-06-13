@@ -19,23 +19,23 @@ const store = {
   },
   opponent: 'player',
   interval: '',
-  tbd:{
-    game0:{
-      cells: '',
-      id: 0,
-      turnNum: 0,
-    },
-    game1:{
-      cells: '',
-      id: 0,
-      turnNum: 0,
-    },
-    game2: {
-      cells: '',
-      id: 0,
-      turnNum: 0,
-    }
-  }
+  // tbd:{
+  //   game0:{
+  //     cells: '',
+  //     id: 0,
+  //     turnNum: 0,
+  //   },
+  //   game1:{
+  //     cells: '',
+  //     id: 0,
+  //     turnNum: 0,
+  //   },
+  //   game2: {
+  //     cells: '',
+  //     id: 0,
+  //     turnNum: 0,
+  //   }
+  // }
 }
 
 module.exports = store
