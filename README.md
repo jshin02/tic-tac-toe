@@ -1,129 +1,65 @@
-[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
+# Application Title: A Description
 
-# browser-template
+This application allows the user to do play a game of Tic-Tac-Toe against another player, or against "the computer" - auto generated responses.
 
-A template for starting front-end projects. Webpack for `require` system, build
-pipeline, and development server. Boostrap and Handlebars.js included. No
-front-end frameworks included.
+## Important Links
 
-## Installation
+- [API Documentation](https://git.generalassemb.ly/ga-wdi-boston/game-project-api)
+- [Deployed Client](https://jshin02.github.io/tic-tac-toe/)
 
-1. [Download](../../archive/master.zip) this template.
-    - **Do Not Fork And Clone**
-    - Click the "Clone or Download" button and select "Download Zip".
-1. Move to the `wdi/projects` directory, then unzip the template directory with
-    `unzip /Users/<user-name>/Downloads/browser-template-master.zip`.
-1. Rename the template directory from `browser-template-master` to
-    `<project-name>-client`.
-1. Empty [`README.md`](README.md) and fill with your own content.
-1. Replace all instances of `ga-wdi-boston.browser-template` with the name of
-    your project.
-    - You can search for all instances of text in Atom by pressing
-    `commant + shift + f` on Mac or `ctrl + shift + f` on WSL.
-1. Move into the new project and `git init`.
-1. Add all of the files in your project with the command `git add --all`.
-      - **Note: This is the only time you should run this command!**
-1. Commit all of your files with the command `git commit`.
-      - Your commit title should read `Initial commit`.
-1. Install dependencies with `npm install`.
-1. Create a new repository on [github.com](https://github.com),
-    _not GitHub Enterprise_.
-1. Name the new repository with the same name used on Step 3.
-1. Follow the instructions on your new repository's setup page. For details on
-   how to push to Github, refer to the section on Github entitled "…or push an existing
-   repository from the command line." Further documentation can be found [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/).
+## Planning Story
+This is an adaptation of the key problems that came out of my whiteboarding (pictures below) that I knew would require more attention.
 
-## Structure
+Consolidated plan for game engine:
+The Game Engine
+First, manipulate a single cell.
+Is this box empty?
+If no, provide a queue that says the square is occupied.
+If yes, call function that changes box to yes or no.
 
-### Scripts
+function -> Tick(id of box that needs to be changed)
+Tick gives that position X or O depending on value of store.turnNum
+add to the turnNum
 
-Developers should store JavaScript files in [`assets/scripts`](assets/scripts).
-The "manifest" or entry-point is
-[`assets/scripts/app.js`](assets/scripts/app.js). In general, only
-application initialization goes in this file. It's normal for developers to
-start putting all code in this file, but encourage them to break out different
-responsibilities and use the `require` syntax put references where they're
-needed.
+function -> Is game over? (gameStatus) -> game engine
+Find winning conditions
 
-### Config
+**Update api with “game: over”**
 
-Developers should set `apiUrls.production` and `apiUrls.development` in
-[`assets/scripts/config.js`](assets/scripts/config.js).  With
-`apiUrls` set, developers may rely on `apiUrl` as the base for API
-URLs.
+**Update api with the cell and game status change**
 
-### Styles
+### User Stories
 
-Developers should store styles in [`assets/styles`](assets/styles) and load them
-from [`assets/styles/index.scss`](assets/styles/index.scss). Bootstrap version 3 is
-included in this template.
+- As a user I want to sign in/up
+- As a user I want to Create a new game
+- As a user I want to Read multiple < resources >
+- As a user I want to Read a single < resource >
+- As a user I want to Update a game with each move that I make.
+- As a user I want to Delete a < resource > I own from the history of games.
+- As a competitive user, I want to see a history of my games so that I can see how I have been doing.
+- As a competitive user, I want to see a running scoreboard of the number of times I won so that I can see who is winning.
+- As a forgetful user, I want to be able to change my password with ease so that I don't lose too much time before playing again.
+- As a user who doesn't speak English, I want to add instructions, through instructions or animations so that anyone can start playing this game.
 
-### Forms and Using `getFormFields`
+### Technologies Used
 
-Developers should use [getFormFields](get-form-fields.md) to retrieve form data
-to send to an API.
+- jQuery
+- HTML/CSS
+- Bootstrap
+- Javascript
 
-### Deployment
+### Unsolved Problems
 
-To deploy a browser-template based SPA, run `grunt deploy`.
+- Still need to complete view and interaction of incomplete games stored in the api.
+- Would like to eventually create a more "difficult" level of ai interaction.
 
-## Adding Images
+## Images
+![Logo](public/tic_tac_toe.svg.png)
+---
 
-To add images to your project, you must store them in the `public` directory.
-To use the image in HTML or CSS, write the path to the image like this:
+#### Wireframe:
+![wireframe](https://media.git.generalassemb.ly/user/28541/files/49ea3480-a968-11ea-82fe-dd6ee5f14cb0)
 
-```html
-<img src="public/cat.jpg">
-```
-or
-```css
-#my-cool-div {
-  background-image: url('public/cat.jpg')
-}
-```
-
-Note that there's no `./` or `/` in front of `public/filename.jpg`.
-
-## Adding Fonts
-
-To add custom fonts to your app, you can either use a CDN like Google Fonts, or
-you can download the fonts and save them in the `public` directory. If you use
-the former method, follow the directions on the website providing the fonts.
-
-For local fonts, put the files in `public`, and then import and use them in a
-`.scss` file like this:
-
-```scss
-@font-face {
-  font-family: 'Nature Beauty';
-  src: url('public/Nature-Beauty.ttf') format('truetype');
-}
-
-.element-with-custom-font {
-  font-family: 'Nature Beauty';
-}
-```
-
-## Tasks
-
-Developers should run these often!
-
-- `grunt nag` or just `grunt`: runs code quality analysis tools on your code
-    and complains
-- `grunt make-standard`: reformats all your code in the JavaScript Standard Style
-- `grunt <server|serve|s>`: generates bundles, watches, and livereloads
-- `grunt build`: place bundled styles and scripts where `index.html` can find
-    them
-- `grunt deploy`: builds and deploys master branch
-
-
-## Additional Resources
-
-- [Modern Javascript Explained for Dinosaurs](https://medium.com/@peterxjang/modern-javascript-explained-for-dinosaurs-f695e9747b70)
-- [Making Sense of Front End Build Tools](https://medium.freecodecamp.org/making-sense-of-front-end-build-tools-3a1b3a87043b)
-
-## [License](LICENSE)
-
-1. All content is licensed under a CC­BY­NC­SA 4.0 license.
-1. All software code is licensed under GNU GPLv3. For commercial use or
-    alternative licensing, please contact legal@ga.co.
+#### Planning:
+![Planning1](https://media.git.generalassemb.ly/user/28541/files/46ef4400-a968-11ea-8418-2a2ffe34d88e)
+![Planning2](https://media.git.generalassemb.ly/user/28541/files/4d7dbb80-a968-11ea-9985-4645edf8c64a)

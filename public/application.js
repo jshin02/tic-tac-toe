@@ -1411,24 +1411,24 @@ var store = {
     wIndex: null
   },
   opponent: 'player',
-  interval: '',
-  tbd: {
-    game0: {
-      cells: '',
-      id: 0,
-      turnNum: 0
-    },
-    game1: {
-      cells: '',
-      id: 0,
-      turnNum: 0
-    },
-    game2: {
-      cells: '',
-      id: 0,
-      turnNum: 0
-    }
-  }
+  interval: ''
+  // tbd:{
+  //   game0:{
+  //     cells: '',
+  //     id: 0,
+  //     turnNum: 0,
+  //   },
+  //   game1:{
+  //     cells: '',
+  //     id: 0,
+  //     turnNum: 0,
+  //   },
+  //   game2: {
+  //     cells: '',
+  //     id: 0,
+  //     turnNum: 0,
+  //   }
+  // }
 };
 
 module.exports = store;
@@ -17231,8 +17231,8 @@ var playerTurn = function playerTurn() {
   }
 };
 
+//generate array of blank squares, random generate random number from length, place it in back where cell is blank
 var cellStatus = function cellStatus() {
-  //generate array of blank squares, random generate random number from length, place it in back where cell is blank
   store.game.cell.value = playerTurn();
   if (store.game.over === false) {
     var emptySpaces = [];
